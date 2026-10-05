@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messi & Neymar — The GOATs</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #070b18;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    body::before {
+      content: "";
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: #00aaff;
+      border-radius: 50%;
+      filter: blur(180px);
+      opacity: 0.15;
+      top: -150px;
+      left: -150px;
+      z-index: -1;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: #ff00cc;
+      border-radius: 50%;
+      filter: blur(180px);
+      opacity: 0.12;
+      bottom: -150px;
+      right: -150px;
+      z-index: -1;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(7, 11, 24, 0.8);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffd700;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+      background:
+        radial-gradient(circle at center, rgba(20,80,180,0.25), transparent 50%);
+    }
+
+    .hero-badge {
+      padding: 8px 18px;
+      border: 1px solid #ffd700;
+      border-radius: 50px;
+      color: #ffd700;
+      font-weight: bold;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(55px, 10vw, 120px);
+      line-height: 0.9;
+      font-weight: 1000;
+      background: linear-gradient(90deg, #ffd700, #fff, #00c6ff);
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 25px;
+    }
+
+    .hero p {
+      max-width: 700px;
+      color: #b9c2d9;
+      font-size: 20px;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 35px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 14px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .btn-gold {
+      background: #ffd700;
+      color: #111;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+    }
+
+    .btn-dark {
+      border: 1px solid #47516b;
+      color: white;
+      background: transparent;
+    }
+
+    .btn-dark:hover {
+      background: #182038;
+    }
+
+    /* General sections */
+    section {
+      padding: 100px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(35px, 5vw, 60px);
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: #8e9ab7;
+    }
+
+    /* Player cards */
+    .players {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 35px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .player-card {
+      position: relative;
+      padding: 40px;
+      border-radius: 25px;
+      overflow: hidden;
+      min-height: 550px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: 0.4s;
+    }
+
+    .player-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255,215,0,0.5);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .messi {
+      background:
+        linear-gradient(0deg, #101b4a 0%, rgba(16,27,74,0.3) 100%);
+    }
+
+    .neymar {
+      background:
+        linear-gradient(0deg, #064b39 0%, rgba(6,75,57,0.25) 100%);
+    }
+
+    .player-number {
+      position: absolute;
+      right: 25px;
+      top: 15px;
+      font-size: 150px;
+      font-weight: 1000;
+      opacity: 0.08;
+    }
+
+    .player-card h3 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .player-card .nickname {
+      color: #ffd700;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .player-card p {
+      color: #d0d6e5;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      background: rgba(255,255,255,0.1);
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    /* Stats */
+    .stats-table {
+      max-width: 1000px;
+      margin: auto;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.03);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    th {
+      color: #ffd700;
+      background: rgba(255,215,0,0.05);
+    }
+
+    td:first-child {
+      text-align: left;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* Trophy cards */
+    .trophies {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .trophy {
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #11182c, #0a1020);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.3s;
+    }
+
+    .trophy:hover {
+      transform: translateY(-8px);
+      border-color: #ffd700;
+    }
+
+    .trophy-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .trophy h3 {
+      color: #ffd700;
+      margin-bottom: 8px;
+    }
+
+    .trophy p {
+      color: #929db8;
+      font-size: 14px;
+    }
+
+    /* GOAT section */
+    .goat-section {
+      text-align: center;
+      background: linear-gradient(
+        135deg,
+        rgba(255,215,0,0.08),
+        rgba(0,180,255,0.08)
+      );
+    }
+
+    .goat-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 60px 30px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,215,0,0.25);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .goat-box h2 {
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+
+    #goatResult {
+      margin-top: 30px;
+      min-height: 50px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      color: #69748e;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    footer span {
+      color: #ffd700;
+    }
+
+    /* Floating football */
+    .ball {
+      position: fixed;
+      font-size: 30px;
+      animation: float 5s ease-in-out infinite;
+      opacity: 0.4;
+      z-index: -1;
+    }
+
+    .ball.one {
+      top: 30%;
+      left: 5%;
+    }
+
+    .ball.two {
+      top: 65%;
+      right: 5%;
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(0);
+      }
+      50% {
+        transform: translateY(-30px) rotate(180deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 rgba(255,215,0,0);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(255,215,0,0.3);
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 800px) {
+      nav {
+        padding: 15px 5%;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      section {
+        padding: 75px 5%;
+      }
+
+      .players {
+        grid-template-columns: 1fr;
+      }
+
+      .trophies {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .player-card {
+        min-height: 500px;
+        padding: 30px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .trophies {
+        grid-template-columns: 1fr;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .player-card h3 {
+        font-size: 38px;
+      }
+
+      th, td {
+        padding: 13px 8px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="ball one">⚽</div>
+  <div class="ball two">⚽</div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">🐐 M&N GOAT</div>
+
+    <ul>
+      <li><a href="#players">Players</a></li>
+      <li><a href="#stats">Stats</a></li>
+      <li><a href="#trophies">Trophies</a></li>
+      <li><a href="#goat">GOAT</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-badge">⚽ THE BEAUTIFUL GAME</div>
+
+    <h1>THE GOATs</h1>
+
+    <p>
+      Two football artists. Two completely different styles.
+      One unforgettable era. Welcome to the ultimate Messi & Neymar
+      fan page.
+    </p>
+
+    <div class="hero-buttons">
+      <a class="btn btn-gold" href="#players">Meet the GOATs</a>
+      <a class="btn btn-dark" href="#stats">Compare Them</a>
+    </div>
+  </header>
+
+  <!-- Players -->
+  <section id="players">
+    <div class="section-title">
+      <h2>Meet The Legends</h2>
+      <p>Different styles. Same legendary status.</p>
+    </div>
+
+    <div class="players">
+
+      <div class="player-card messi">
+        <div class="player-number">10</div>
+
+        <h3>Messi</h3>
+        <div class="nickname">🇦🇷 THE MAGICIAN</div>
+
+        <p>
+          Lionel Messi combines close control, vision, passing,
+          finishing and dribbling in a way that has made him one
+          of football's most celebrated players.
+        </p>
+
+        <div class="tags">
+          <span class="tag">🎯 Playmaker</span>
+          <span class="tag">⚡ Dribbler</span>
+          <span class="tag">🥅 Finisher</span>
+          <span class="tag">👑 Captain</span>
+        </div>
+      </div>
+
+      <div class="player-card neymar">
+        <div class="player-number">10</div>
+
+        <h3>Neymar</h3>
+        <div class="nickname">🇧🇷 THE SHOWMAN</div>
+
+        <p>
+          Neymar is famous for his flair, creativity, technical
+          ability, one-on-one skills and spectacular style of
+          play. His game is built around entertaining football.
+        </p>
+
+        <div class="tags">
+          <span class="tag">🎨 Flair</span>
+          <span class="tag">🕺 Skills</span>
+          <span class="tag">⚡ Speed</span>
+          <span class="tag">🇧🇷 Brazil Star</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section id="stats">
+    <div class="section-title">
+      <h2>The Numbers</h2>
+      <p>A quick look at their careers.</p>
+    </div>
+
+    <div class="stats-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>🇦🇷 Messi</th>
+            <th>🇧🇷 Neymar</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Position</td>
+            <td>Forward / Playmaker</td>
+            <td>Forward / Winger</td>
+          </tr>
+
+          <tr>
+            <td>Famous Number</td>
+            <td>10</td>
+            <td>10</td>
+          </tr>
+
+          <tr>
+            <td>World Cup</td>
+            <td>🏆 Winner</td>
+            <td>🇧🇷 Brazil Legend</td>
+          </tr>
+
+          <tr>
+            <td>Playing Style</td>
+            <td>Vision + Dribbling</td>
+            <td>Flair + Creativity</td>
+          </tr>
+
+          <tr>
+            <td>Signature Skill</td>
+            <td>Close Control</td>
+            <td>1v1 Dribbling</td>
+          </tr>
+
+          <tr>
+            <td>Iconic Era</td>
+            <td>Barcelona / Argentina</td>
+            <td>Santos / Barcelona / Brazil</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Trophies -->
+  <section id="trophies">
+    <div class="section-title">
+      <h2>🏆 The Trophy Cabinet</h2>
+      <p>Some of the biggest achievements associated with their careers.</p>
+    </div>
+
+    <div class="trophies">
+
+      <div class="trophy">
+        <div class="trophy-icon">🏆</div>
+        <h3>World Cup</h3>
+        <p>Messi lifted the World Cup with Argentina in 2022.</p>
+      </div>
+
+      <div class="trophy">
+        <div class="trophy-icon">🥇</div>
+        <h3>Copa América</h3>
+        <p>Messi won the Copa América with Argentina.</p>
+      </div>
+
+      <div class="trophy">
+        <div class="trophy-icon">⭐</div>
+        <h3>Champions League</h3>
+        <p>Messi and Neymar both played major roles in Champions League-winning teams.</p>
+      </div>
+
+      <div class="trophy">
+        <div class="trophy-icon">🥇</div>
+        <h3>Olympic Gold</h3>
+        <p>Neymar won Olympic gold with Brazil in 2016.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GOAT Button -->
+  <section id="goat" class="goat-section">
+
+    <div class="goat-box">
+      <h2>🐐 Who Is Your GOAT?</h2>
+
+      <p>
+        There's only one way to settle this...
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn btn-gold" onclick="chooseGoat('Messi')">
+          🇦🇷 MESSI
+        </button>
+
+        <button class="btn btn-dark" onclick="chooseGoat('Neymar')">
+          🇧🇷 NEYMAR
+        </button>
+
+        <button class="btn btn-dark" onclick="chooseGoat('Both')">
+          🐐 BOTH
+        </button>
+      </div>
+
+      <div id="goatResult"></div>
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    Made with ⚽ + ❤️ by a football fan.
+    <br><br>
+    <span>MESSI × NEYMAR</span> — Legends of the game.
+  </footer>
+
+
+  <script>
+
+    function chooseGoat(player) {
+
+      const result = document.getElementById("goatResult");
+
+      if (player === "Messi") {
+        result.innerHTML =
+          "🇦🇷🐐 You chose Messi! The magician has entered the chat.";
+      }
+
+      else if (player === "Neymar") {
+        result.innerHTML =
+          "🇧🇷🔥 You chose Neymar! The showman approves.";
+      }
+
+      else {
+        result.innerHTML =
+          "🐐🐐 Why choose? Messi + Neymar = football magic.";
+      }
+
+      // Small animation
+      result.style.transform = "scale(0.5)";
+      result.style.opacity = "0";
+
+      setTimeout(() => {
+        result.style.transition = "0.4s";
+        result.style.transform = "scale(1)";
+        result.style.opacity = "1";
+      }, 50);
+    }
+
+    // Reveal sections smoothly when scrolling
+    const cards = document.querySelectorAll(
+      ".player-card, .trophy, .stats-table, .goat-box"
+    );
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    cards.forEach(card => {
+      card.style.opacity = "0";
+      card.style.transform = "translateY(30px)";
+      card.style.transition = "opacity 0.7s ease, transform 0.7s ease";
+      observer.observe(card);
+    });
+
+  </script>
+
+</body>
+</html>
